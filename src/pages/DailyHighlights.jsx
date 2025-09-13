@@ -14,8 +14,8 @@ export default function DailyHighlights() {
       try {
         setLoading(true);
         const [eonetRes, donkiRes] = await Promise.all([
-      axios.get('/api/eonet'),
-      axios.get('/api/donki'),
+      axios.get('https://geoaurora-backend-432163986190.asia-south1.run.app/api/eonet'),
+      axios.get('https://geoaurora-backend-432163986190.asia-south1.run.app/api/donki'),
         ]);
         
       const eonetEvents = eonetRes.data.events || [];
@@ -76,7 +76,7 @@ export default function DailyHighlights() {
         try {
           const title = typeof event.title === 'string' && event.title.trim() ? event.title : (event.note || 'Event');
           const description = typeof event.description === 'string' ? event.description : undefined;
-          const { data } = await axios.post('/api/summary', { title, description });
+          const { data } = await axios.post('https://geoaurora-backend-432163986190.asia-south1.run.app/api/summary', { title, description });
           setSummaries(s => ({ ...s, [idx]: data.summary }));
         } catch (err) {
           setSummaries(s => ({ ...s, [idx]: 'AI summary unavailable.' }));

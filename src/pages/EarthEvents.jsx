@@ -106,7 +106,7 @@ export default function EarthEvents() {
     let intervalId;
     const fetchEvents = () => {
       setRefreshing(true);
-      axios.get('/api/eonet').then(res => {
+      axios.get('https://geoaurora-backend-432163986190.asia-south1.run.app/api/eonet').then(res => {
         // Fetch more events (e.g., 30) to ensure we can display 15 valid ones
         setEvents((prevEvents) => {
           const newEvents = res.data.events || [];
@@ -155,7 +155,7 @@ export default function EarthEvents() {
           const { title } = event;
           // Only send description if it's a string, else undefined
           const description = typeof event.description === 'string' ? event.description : undefined;
-          const { data } = await axios.post('/api/summary', { title, description });
+          const { data } = await axios.post('https://geoaurora-backend-432163986190.asia-south1.run.app/api/summary', { title, description });
           setSummaries(s => {
             const next = { ...s, [event.id]: data.summary };
             try { sessionStorage.setItem('eonet_summaries_v1', JSON.stringify(next)); } catch {}
@@ -195,7 +195,7 @@ export default function EarthEvents() {
         }
       } catch {}
       try {
-        const { data } = await axios.post('/api/auto_enrich', {
+        const { data } = await axios.post('https://geoaurora-backend-432163986190.asia-south1.run.app/api/auto_enrich', {
           id,
           title: event.title,
           description: baseDesc || undefined,

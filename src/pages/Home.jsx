@@ -80,8 +80,8 @@ export default function Home() {
           setLoading(true);
         }
         const [eonetRes, donkiRes] = await Promise.all([
-          axios.get('/api/eonet'),
-          axios.get('/api/donki'),
+          axios.get('https://geoaurora-backend-432163986190.asia-south1.run.app/api/eonet'),
+          axios.get('https://geoaurora-backend-432163986190.asia-south1.run.app/api/donki'),
         ]);
         const earth = eonetRes.data.events?.slice(0, 3) || [];
         const space = Array.isArray(donkiRes.data) ? donkiRes.data.slice(0, 3) : [];

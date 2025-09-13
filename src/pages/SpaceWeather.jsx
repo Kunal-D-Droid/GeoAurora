@@ -301,7 +301,7 @@ export default function SpaceWeather() {
   useEffect(() => {
     let intervalId;
     const fetchDonki = () => {
-      axios.get('/api/donki').then(res => {
+      axios.get('https://geoaurora-backend-432163986190.asia-south1.run.app/api/donki').then(res => {
         setEvents(res.data || []);
         try {
           sessionStorage.setItem('donki_cache_v1', JSON.stringify({ t: Date.now(), data: res.data || [] }));
@@ -352,7 +352,7 @@ export default function SpaceWeather() {
           // Enhanced prompt for unique facts
           const enhancedDescription = `${description}\n\nEvent Type: ${event.category || 'Space Weather Event'}\nEvent ID: ${stableId}\nTimestamp: ${event.startTime || 'Recent'}`;
           
-          const { data } = await axios.post('/api/summary', { 
+          const { data } = await axios.post('https://geoaurora-backend-432163986190.asia-south1.run.app/api/summary', { 
             title, 
             description: enhancedDescription 
           });
