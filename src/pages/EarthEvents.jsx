@@ -107,7 +107,6 @@ export default function EarthEvents() {
     const fetchEvents = () => {
       setRefreshing(true);
       axios.get('/api/eonet').then(res => {
-        console.log('Fetched EONET events:', res.data);
         // Fetch more events (e.g., 30) to ensure we can display 15 valid ones
         setEvents((prevEvents) => {
           const newEvents = res.data.events || [];

@@ -18,7 +18,7 @@ const navItems = [
 
 export default function Navbar() {
   return (
-    <aside className="h-screen w-64 bg-gray-900 text-white flex flex-col shadow-xl rounded-r-3xl p-4 sticky top-0">
+    <aside className="h-screen w-80 bg-gray-900 text-white flex flex-col shadow-xl rounded-r-3xl p-4 sticky top-0">
       <div className="flex items-center gap-3 mb-10 mt-2 px-2">
         <img src="/logo.png" alt="GeoAurora" className="w-8 h-8 rounded-lg" />
         <span className="text-2xl font-bold text-aurora-purple tracking-wide">GeoAurora</span>
