@@ -150,16 +150,33 @@ export default function EventDetails() {
     }
   };
 
+  // Get impact level for Space Weather events
+  const getImpactLevel = () => {
+    const eventType = event.category || event.note || '';
+    if (eventType.toLowerCase().includes('cme')) {
+      return 'Geomagnetic Storm Risk';
+    } else if (eventType.toLowerCase().includes('flare')) {
+      return 'Radio Disruption Risk';
+    } else if (eventType.toLowerCase().includes('solar wind')) {
+      return 'Minor Activity';
+    } else if (eventType.toLowerCase().includes('sep')) {
+      return 'Radiation Risk';
+    } else {
+      return 'Space Weather Event';
+    }
+  };
+
   return (
     <div className="max-w-4xl mx-auto">
       <h2 className="text-4xl font-bold mb-6 text-aurora-purple">Event Details</h2>
-      {isEarthEvent ? (
+      {isEarthEvent && (
         <div className="rounded-2xl overflow-hidden mb-6">
           <ResponsiveMapView events={[event]} />
         </div>
-      ) : isSpaceWeatherEvent ? (
-        <div className="rounded-2xl overflow-hidden mb-6">
-          <div className="relative h-96 w-full">
+      )}
+      {isSpaceWeatherEvent && (
+        <div className="rounded-2xl overflow-hidden mb-6 relative">
+          <div className="relative h-64 sm:h-80 lg:h-96 w-full">
             <img
               src={getSpaceWeatherImage()}
               alt="Space Weather Event"
@@ -168,20 +185,15 @@ export default function EventDetails() {
                 e.target.src = '/default-space.jpg';
               }}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-transparent to-transparent" />
-            <div className="absolute bottom-4 left-4 right-4">
-              <div className="bg-black/50 backdrop-blur-sm rounded-lg p-4">
-                <h3 className="text-xl font-bold text-white mb-2">
-                  {event.category || event.note || 'Space Weather Event'}
-                </h3>
-                <p className="text-gray-300 text-sm">
-                  {event.description || event.note || 'Space weather event detected by NASA DONKI'}
-                </p>
+            <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent" />
+            <div className="absolute top-4 right-4">
+              <div className="bg-black/70 backdrop-blur-sm rounded-lg px-3 py-2 border border-orange-400/50">
+                <span className="text-orange-300 text-sm font-semibold">⚠️ {getImpactLevel()}</span>
               </div>
             </div>
           </div>
         </div>
-      ) : null}
+      )}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         <div className="bg-gray-800 rounded-xl p-4 text-center">
           <div className="text-sm text-gray-400 mb-2">Date</div>
