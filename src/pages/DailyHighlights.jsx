@@ -145,10 +145,55 @@ export default function DailyHighlights() {
   if (loading) {
     return (
       <div className="p-0">
-        <div className="flex items-center justify-center min-h-[400px]">
-          <div className="flex items-center gap-3 text-gray-300">
-            <div className="loader"></div>
-            <span className="text-lg">Loading today's highlights...</span>
+        <div className="flex flex-col items-center justify-center min-h-[500px] relative">
+          <div className="data-loader">
+            <div className="data-particles">
+              <div className="data-particle"></div>
+              <div className="data-particle"></div>
+              <div className="data-particle"></div>
+              <div className="data-particle"></div>
+              <div className="data-particle"></div>
+              <div className="data-particle"></div>
+            </div>
+          </div>
+          <div className="loading-text">
+            <div>Loading today's highlights</div>
+            <div className="loading-dots">...</div>
+          </div>
+          <div className="progress-steps">
+            <div className="progress-step active">
+              <div className="progress-step-icon">🌍</div>
+              <span>EONET</span>
+            </div>
+            <div className="progress-step">
+              <div className="progress-step-icon">☀️</div>
+              <span>DONKI</span>
+            </div>
+            <div className="progress-step">
+              <div className="progress-step-icon">🤖</div>
+              <span>AI Processing</span>
+            </div>
+            <div className="progress-step">
+              <div className="progress-step-icon">✨</div>
+              <span>Complete</span>
+            </div>
+          </div>
+          <div className="progress-container">
+            <div className="progress-bar"></div>
+          </div>
+          <div className="data-sources">
+            <div className="data-source">
+              <span>🌍</span>
+              <span>EONET</span>
+            </div>
+            <div className="data-source">
+              <span>☀️</span>
+              <span>DONKI</span>
+            </div>
+            <div className="data-source">
+              <span>🤖</span>
+              <span>AI Processing</span>
+            </div>
           </div>
         </div>
       </div>

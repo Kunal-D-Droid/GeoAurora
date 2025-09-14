@@ -132,40 +132,40 @@ export default function EventDetails() {
 
   return (
     <div className="max-w-4xl mx-auto">
-      <h2 className="text-3xl font-bold mb-6 text-aurora-purple">Event Details</h2>
+      <h2 className="text-4xl font-bold mb-6 text-aurora-purple">Event Details</h2>
       <div className="rounded-2xl overflow-hidden mb-6">
         <ResponsiveMapView events={[event]} />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         <div className="bg-gray-800 rounded-xl p-4 text-center">
-          <div className="text-xs text-gray-400 mb-1">Date</div>
-          <div className="font-bold text-lg">{(() => {
+          <div className="text-sm text-gray-400 mb-2">Date</div>
+          <div className="font-bold text-xl">{(() => {
             const d = event.geometry?.[0]?.date || event.startTime || '';
             try { return new Date(d).toLocaleString(); } catch { return d; }
           })()}</div>
         </div>
         <div className="bg-gray-800 rounded-xl p-4 text-center">
-          <div className="text-xs text-gray-400 mb-1">Category</div>
-          <div className="font-bold text-lg">{category || event.category || 'N/A'}</div>
+          <div className="text-sm text-gray-400 mb-2">Category</div>
+          <div className="font-bold text-xl">{category || event.category || 'N/A'}</div>
         </div>
         <div className="bg-gray-800 rounded-xl p-4 text-center">
-          <div className="text-xs text-gray-400 mb-1">Severity</div>
-          <div className="font-bold text-lg">{severity || event.severity || 'N/A'}</div>
+          <div className="text-sm text-gray-400 mb-2">Severity</div>
+          <div className="font-bold text-xl">{severity || event.severity || 'N/A'}</div>
         </div>
       </div>
       <div className="bg-gray-900 rounded-xl p-6 mb-4 border-l-4 border-neon-green">
-        <div className="flex items-center gap-2 mb-2">
-          <span className="text-neon-green text-xl">✨</span>
-          <span className="font-bold text-lg">Simple Explanation</span>
+        <div className="flex items-center gap-2 mb-3">
+          <span className="text-neon-green text-2xl">✨</span>
+          <span className="font-bold text-xl">Simple Explanation</span>
         </div>
-        <div className="text-base text-gray-200">{loading ? 'Generating summary…' : (summary || event.summary || 'No summary available.')}</div>
+        <div className="text-lg text-gray-200">{loading ? 'Generating summary…' : (summary || event.summary || 'No summary available.')}</div>
       </div>
       <div className="bg-gray-900 rounded-xl p-6 mb-6 border-l-4 border-solar-yellow">
-        <div className="flex items-center gap-2 mb-2">
-          <span className="text-solar-yellow text-xl">💡</span>
-          <span className="font-bold text-lg">Did You Know?</span>
+        <div className="flex items-center gap-2 mb-3">
+          <span className="text-solar-yellow text-2xl">💡</span>
+          <span className="font-bold text-xl">Did You Know?</span>
         </div>
-        <div className="text-base text-gray-200">{fact || event.fact || '—'}</div>
+        <div className="text-lg text-gray-200">{fact || event.fact || '—'}</div>
       </div>
       
       {keyTerms.length > 0 && (

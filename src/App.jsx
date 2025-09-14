@@ -20,9 +20,21 @@ function App() {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center">
-        <div className="flex items-center gap-3 text-gray-300">
-          <div className="loader"></div>
-          <span className="text-lg">Loading...</span>
+        <div className="flex flex-col items-center gap-4 text-gray-300">
+          <div className="data-loader">
+            <div className="data-particles">
+              <div className="data-particle"></div>
+              <div className="data-particle"></div>
+              <div className="data-particle"></div>
+              <div className="data-particle"></div>
+              <div className="data-particle"></div>
+              <div className="data-particle"></div>
+            </div>
+          </div>
+          <div className="loading-text">
+            <div>Initializing GeoAurora</div>
+            <div className="loading-dots">...</div>
+          </div>
         </div>
       </div>
     );
@@ -60,8 +72,8 @@ function App() {
             <Route path="/event/:id" element={<EventDetails />} />
             <Route path="/about" element={<About />} />
           </Routes>
-          <footer className="mt-10 border-t border-white/10 pt-6 text-xs text-gray-400 flex justify-between items-center">
-            <span>&copy; {new Date().getFullYear()} GeoAurora</span>
+          <footer className="mt-10 border-t border-white/10 pt-6 text-sm text-gray-400 flex justify-between items-center">
+            <span>&copy; {new Date().getFullYear()} GeoAurora - Made with ❤️ for Space Enthusiasts</span>
             <span>Data: NASA EONET & DONKI</span>
           </footer>
         </main>

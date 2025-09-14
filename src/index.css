@@ -2,51 +2,246 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Refresh loader */
-/* HTML: <div class="loader"></div> */
-.loader {
-  width: fit-content;
-  font-size: 17px;
-  font-family: monospace;
-  line-height: 1.4;
-  font-weight: bold;
-  background:
-    linear-gradient(#000 0 0) left ,
-    linear-gradient(#000 0 0) right;
-  background-repeat: no-repeat;
-  border-right: 5px solid #0000;
-  border-left: 5px solid #0000;
-  background-origin: border-box;
+/* Space-themed data loading animation */
+.data-loader {
   position: relative;
-  animation: l9-0 2s infinite;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
 }
-.loader::before { content:"Loading"; }
-.loader::after {
-  content: "";
+
+.data-loader::before {
+  content: '';
   position: absolute;
-  top: 100%;
+  top: 50%;
+  left: 50%;
+  width: 120px;
+  height: 120px;
+  margin: -60px 0 0 -60px;
+  border: 2px solid rgba(162, 89, 247, 0.3);
+  border-radius: 50%;
+  border-top-color: #a259f7;
+  animation: spin 1s linear infinite;
+}
+
+.data-loader::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80px;
+  height: 80px;
+  margin: -40px 0 0 -40px;
+  border: 2px solid rgba(57, 255, 20, 0.3);
+  border-radius: 50%;
+  border-top-color: #39ff14;
+  animation: spin 1.5s linear infinite reverse;
+}
+
+/* Data particles animation */
+.data-particles {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+}
+
+.data-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: linear-gradient(45deg, #a259f7, #39ff14);
+  border-radius: 50%;
+  animation: data-flow 3s linear infinite;
+}
+
+.data-particle:nth-child(1) { animation-delay: 0s; }
+.data-particle:nth-child(2) { animation-delay: 0.5s; }
+.data-particle:nth-child(3) { animation-delay: 1s; }
+.data-particle:nth-child(4) { animation-delay: 1.5s; }
+.data-particle:nth-child(5) { animation-delay: 2s; }
+.data-particle:nth-child(6) { animation-delay: 2.5s; }
+
+@keyframes data-flow {
+  0% {
+    transform: translate(0, 0) scale(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(50px, -50px) scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(100px, -100px) scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Loading text animation */
+.loading-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #a259f7;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  z-index: 10;
+}
+
+.loading-dots {
+  display: inline-block;
+  animation: dots 1.5s infinite;
+}
+
+@keyframes dots {
+  0%, 20% { content: ''; }
+  40% { content: '.'; }
+  60% { content: '..'; }
+  80%, 100% { content: '...'; }
+}
+
+/* Progress bar */
+.progress-container {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+  border: 1px solid rgba(162, 89, 247, 0.3);
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #a259f7, #39ff14, #a259f7);
+  background-size: 200% 100%;
+  border-radius: 3px;
+  animation: progress-fill 3s ease-in-out infinite;
+  position: relative;
+}
+
+.progress-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
   left: 0;
-  width: 22px;
-  height: 60px;
-  background:
-   linear-gradient(90deg,#000 4px,#0000 0 calc(100% - 4px),#000 0) bottom/22px 20px,
-   linear-gradient(90deg,red  4px,#0000 0 calc(100% - 4px),red  0) bottom 10px left 0/22px 6px,
-   linear-gradient(#000 0 0) bottom 3px left 0/22px 8px,
-   linear-gradient(#000 0 0) bottom 0 left 50%/8px 16px;
- background-repeat: no-repeat;
- animation: l9-1 2s infinite;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  animation: progress-shine 2s infinite;
 }
-@keyframes l9-0{
-  0%,25%    {background-size: 50% 100%}
-  25.1%,75% {background-size: 0 0,50% 100%}
-  75.1%,100%{background-size: 0 0,0 0}
+
+@keyframes progress-fill {
+  0% { 
+    width: 0%;
+    background-position: 0% 50%;
+  }
+  50% { 
+    width: 70%;
+    background-position: 100% 50%;
+  }
+  100% { 
+    width: 100%;
+    background-position: 0% 50%;
+  }
 }
-@keyframes l9-1{
-  25%   { background-position:bottom, bottom 54px left 0,bottom 3px left 0,bottom 0 left 50%;left:0}
-  25.1% { background-position:bottom, bottom 10px left 0,bottom 3px left 0,bottom 0 left 50%;left:0}
-  50%   { background-position:bottom, bottom 10px left 0,bottom 3px left 0,bottom 0 left 50%;left:calc(100% - 22px)}
-  75%   { background-position:bottom, bottom 54px left 0,bottom 3px left 0,bottom 0 left 50%;left:calc(100% - 22px)}
-  75.1% { background-position:bottom, bottom 10px left 0,bottom 3px left 0,bottom 0 left 50%;left:calc(100% - 22px)}
+
+@keyframes progress-shine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Progress steps */
+.progress-steps {
+  position: absolute;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 30px;
+  opacity: 0.8;
+}
+
+.progress-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: #9ca3af;
+  font-size: 11px;
+  transition: all 0.3s ease;
+}
+
+.progress-step.active {
+  color: #39ff14;
+  transform: scale(1.1);
+}
+
+.progress-step.completed {
+  color: #a259f7;
+}
+
+.progress-step-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  transition: all 0.3s ease;
+}
+
+.progress-step.active .progress-step-icon {
+  background: rgba(57, 255, 20, 0.3);
+  border: 2px solid #39ff14;
+}
+
+.progress-step.completed .progress-step-icon {
+  background: rgba(162, 89, 247, 0.3);
+  border: 2px solid #a259f7;
+}
+
+/* Data source indicators */
+.data-sources {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+  opacity: 0.7;
+}
+
+.data-source {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #9ca3af;
+  font-size: 12px;
+  animation: pulse 2s infinite;
+}
+
+.data-source:nth-child(1) { animation-delay: 0s; }
+.data-source:nth-child(2) { animation-delay: 0.5s; }
+.data-source:nth-child(3) { animation-delay: 1s; }
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
 }
 
 /* Small loader for facts */
@@ -232,22 +427,22 @@ body {
   
   /* Mobile typography */
   h1 {
-    font-size: 1.875rem !important; /* text-3xl */
-    line-height: 2.25rem;
+    font-size: 2.25rem !important; /* text-4xl - was text-3xl */
+    line-height: 2.5rem;
   }
   
   h2 {
-    font-size: 1.5rem !important; /* text-2xl */
-    line-height: 2rem;
+    font-size: 1.875rem !important; /* text-3xl - was text-2xl */
+    line-height: 2.25rem;
   }
   
   h3 {
-    font-size: 1.25rem !important; /* text-xl */
-    line-height: 1.75rem;
+    font-size: 1.5rem !important; /* text-2xl - was text-xl */
+    line-height: 2rem;
   }
   
   h4 {
-    font-size: 1.125rem !important; /* text-lg */
+    font-size: 1.25rem !important; /* text-xl - was text-lg */
     line-height: 1.75rem;
   }
   
@@ -371,19 +566,19 @@ body {
   
   /* Mobile text adjustments */
   .text-lg {
-    font-size: 1rem !important;
+    font-size: 1.125rem !important; /* 18px - was 16px */
   }
   
   .text-base {
-    font-size: 0.875rem !important;
+    font-size: 1rem !important; /* 16px - was 14px */
   }
   
   .text-sm {
-    font-size: 0.75rem !important;
+    font-size: 0.875rem !important; /* 14px - was 12px */
   }
   
   .text-xs {
-    font-size: 0.625rem !important;
+    font-size: 0.75rem !important; /* 12px - was 10px */
   }
   
   /* Mobile shadow adjustments */
@@ -405,15 +600,15 @@ body {
   }
   
   h1 {
-    font-size: 1.5rem !important; /* text-2xl */
+    font-size: 1.875rem !important; /* text-3xl - was text-2xl */
   }
   
   h2 {
-    font-size: 1.25rem !important; /* text-xl */
+    font-size: 1.5rem !important; /* text-2xl - was text-xl */
   }
   
   h3 {
-    font-size: 1.125rem !important; /* text-lg */
+    font-size: 1.25rem !important; /* text-xl - was text-lg */
   }
   
   .p-8 {

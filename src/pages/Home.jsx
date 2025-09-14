@@ -130,18 +130,63 @@ export default function Home() {
     <div className="p-0">
       {/* Header */}
       <div className="flex items-center gap-3 mb-8">
-        <span className="text-4xl">✔️</span>
+        <span className="text-5xl">✔️</span>
         <div>
-          <h1 className="text-3xl font-bold text-aurora-purple">What's today?</h1>
-          <p className="text-gray-400 text-sm">Overview of recent Earth and Space events</p>
+          <h1 className="text-4xl font-bold text-aurora-purple">What's today?</h1>
+          <p className="text-gray-400 text-lg">Overview of recent Earth and Space events</p>
         </div>
       </div>
 
       {loading ? (
-        <div className="flex items-center justify-center min-h-[400px]">
-          <div className="flex items-center gap-3 text-gray-300">
-            <div className="loader"></div>
-            <span className="text-lg">dashboard...</span>
+        <div className="flex flex-col items-center justify-center min-h-[500px] relative">
+          <div className="data-loader">
+            <div className="data-particles">
+              <div className="data-particle"></div>
+              <div className="data-particle"></div>
+              <div className="data-particle"></div>
+              <div className="data-particle"></div>
+              <div className="data-particle"></div>
+              <div className="data-particle"></div>
+            </div>
+          </div>
+          <div className="loading-text">
+            <div>Fetching data from NASA APIs</div>
+            <div className="loading-dots">...</div>
+          </div>
+          <div className="progress-steps">
+            <div className="progress-step active">
+              <div className="progress-step-icon">🌍</div>
+              <span>EONET</span>
+            </div>
+            <div className="progress-step">
+              <div className="progress-step-icon">☀️</div>
+              <span>DONKI</span>
+            </div>
+            <div className="progress-step">
+              <div className="progress-step-icon">🤖</div>
+              <span>AI Processing</span>
+            </div>
+            <div className="progress-step">
+              <div className="progress-step-icon">✨</div>
+              <span>Complete</span>
+            </div>
+          </div>
+          <div className="progress-container">
+            <div className="progress-bar"></div>
+          </div>
+          <div className="data-sources">
+            <div className="data-source">
+              <span>🌍</span>
+              <span>EONET</span>
+            </div>
+            <div className="data-source">
+              <span>☀️</span>
+              <span>DONKI</span>
+            </div>
+            <div className="data-source">
+              <span>🤖</span>
+              <span>AI Processing</span>
+            </div>
           </div>
         </div>
       ) : (
@@ -150,7 +195,7 @@ export default function Home() {
           <div className="w-full">
             <div className="flex items-center gap-3 mb-4 lg:mb-6">
               <img src="/logo.png" alt="Earth Events" className="w-6 h-6 lg:w-8 lg:h-8 rounded-lg" />
-              <h2 className="text-lg lg:text-xl font-bold text-neon-green">Earth Events</h2>
+              <h2 className="text-xl lg:text-2xl font-bold text-neon-green">Earth Events</h2>
               <div className="flex-1 h-px bg-gradient-to-r from-neon-green/50 to-transparent"></div>
             </div>
             <div className="grid grid-cols-1 gap-4">
@@ -174,26 +219,26 @@ export default function Home() {
                           <span className="text-xl">{icon}</span>
                         </div>
                         <div>
-                          <div className="text-sm font-semibold text-gray-300">{eventType}</div>
-                          <div className="text-xs text-gray-400">{formatDate(event.geometry?.[0]?.date)}</div>
+                          <div className="text-base font-semibold text-gray-300">{eventType}</div>
+                          <div className="text-sm text-gray-400">{formatDate(event.geometry?.[0]?.date)}</div>
                         </div>
                       </div>
                       
                       {/* Title */}
-                      <h3 className="text-base lg:text-lg font-bold text-white mb-2 leading-snug">{displayTitle}</h3>
+                      <h3 className="text-lg lg:text-xl font-bold text-white mb-2 leading-snug">{displayTitle}</h3>
                       
                       {/* Description */}
-                      <div className="text-sm lg:text-sm text-gray-200 mb-3 leading-relaxed">
+                      <div className="text-base lg:text-base text-gray-200 mb-3 leading-relaxed">
                         {desc}{(event.description||'').length>120?'…':''}
                       </div>
                       
                       {/* Footer */}
                       <div className="flex items-center justify-between">
-                        <span className="text-xs uppercase tracking-wide bg-white/5 text-gray-300 border border-white/10 px-2 py-1 rounded-full">EONET</span>
+                        <span className="text-sm uppercase tracking-wide bg-white/5 text-gray-300 border border-white/10 px-2 py-1 rounded-full">EONET</span>
                         <Link 
                           to={`/event/${event.id}`} 
                           state={{ event }} 
-                          className="inline-flex items-center gap-2 px-3 lg:px-4 py-2 bg-gradient-to-r from-neon-green/25 to-aurora-purple/25 hover:from-neon-green/35 hover:to-aurora-purple/35 text-white font-semibold text-xs lg:text-sm rounded-lg transition-all duration-300 border border-neon-green/40 hover:border-neon-green/60 min-h-[44px]"
+                          className="inline-flex items-center gap-2 px-3 lg:px-4 py-2 bg-gradient-to-r from-neon-green/25 to-aurora-purple/25 hover:from-neon-green/35 hover:to-aurora-purple/35 text-white font-semibold text-sm lg:text-base rounded-lg transition-all duration-300 border border-neon-green/40 hover:border-neon-green/60 min-h-[44px]"
                         >
                           <span>Explore</span>
                           <span>→</span>
@@ -209,8 +254,8 @@ export default function Home() {
           {/* Space Weather Panel */}
           <div className="w-full">
             <div className="flex items-center gap-3 mb-4 lg:mb-6">
-              <span className="text-xl lg:text-2xl">☀️</span>
-              <h2 className="text-lg lg:text-xl font-bold text-solar-yellow">Space Weather</h2>
+              <span className="text-2xl lg:text-3xl">☀️</span>
+              <h2 className="text-xl lg:text-2xl font-bold text-solar-yellow">Space Weather</h2>
               <div className="flex-1 h-px bg-gradient-to-r from-solar-yellow/50 to-transparent"></div>
             </div>
             <div className="grid grid-cols-1 gap-4">
@@ -235,28 +280,28 @@ export default function Home() {
                           <span className="text-xl">{icon}</span>
                         </div>
                         <div>
-                          <div className="text-sm font-semibold text-gray-300">{eventType}</div>
-                          <div className="text-xs text-gray-400">{formatDate(sw.startTime)}</div>
+                          <div className="text-base font-semibold text-gray-300">{eventType}</div>
+                          <div className="text-sm text-gray-400">{formatDate(sw.startTime)}</div>
                         </div>
                       </div>
                       
                       {/* Title */}
-                      <h3 className="text-lg font-bold text-white mb-2 leading-snug">
+                      <h3 className="text-xl font-bold text-white mb-2 leading-snug">
                         {displayTitle.length>60?displayTitle.slice(0,60)+'…':displayTitle}
                       </h3>
                       
                       {/* Summary */}
-                      <div className="text-sm text-gray-200 mb-3 leading-relaxed">
+                      <div className="text-base text-gray-200 mb-3 leading-relaxed">
                         <span className="font-semibold text-aurora-purple">Summary:</span> {(sw.note || '').slice(0, 100)}{(sw.note||'').length>100?'…':''}
                       </div>
                       
                       {/* Footer */}
                       <div className="flex items-center justify-between">
-                        <span className="text-xs uppercase tracking-wide bg-white/5 text-gray-300 border border-white/10 px-2 py-1 rounded-full">DONKI</span>
+                        <span className="text-sm uppercase tracking-wide bg-white/5 text-gray-300 border border-white/10 px-2 py-1 rounded-full">DONKI</span>
                         <Link 
                           to={`/event/${sw.activityID || 'space'}`} 
                           state={{ event: sw }} 
-                          className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-solar-yellow/25 to-aurora-purple/25 hover:from-solar-yellow/35 hover:to-aurora-purple/35 text-white font-semibold text-sm rounded-lg transition-all duration-300 border border-solar-yellow/40 hover:border-solar-yellow/60"
+                          className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-solar-yellow/25 to-aurora-purple/25 hover:from-solar-yellow/35 hover:to-aurora-purple/35 text-white font-semibold text-base rounded-lg transition-all duration-300 border border-solar-yellow/40 hover:border-solar-yellow/60"
                         >
                           <span>Explore</span>
                           <span>→</span>

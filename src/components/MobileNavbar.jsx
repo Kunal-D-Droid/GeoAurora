@@ -34,8 +34,8 @@ export default function MobileNavbar() {
                 }`
               }
             >
-              <span className="text-xl">{item.icon}</span>
-              <span className="text-xs font-medium leading-tight">{item.name}</span>
+              <span className="text-2xl">{item.icon}</span>
+              <span className="text-sm font-medium leading-tight">{item.name}</span>
             </NavLink>
           ))}
         </div>

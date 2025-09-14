@@ -7,8 +7,8 @@ export default function About() {
       <div className="flex items-center gap-3 mb-8">
         <img src="/logo.png" alt="GeoAurora" className="w-12 h-12 rounded-lg" />
         <div>
-          <h1 className="text-3xl font-bold text-aurora-purple">About GeoAurora</h1>
-          <p className="text-gray-400 text-base">Discover the story behind our mission</p>
+          <h1 className="text-4xl font-bold text-aurora-purple">About GeoAurora</h1>
+          <p className="text-gray-400 text-lg">Discover the story behind our mission</p>
         </div>
       </div>
 
@@ -20,8 +20,11 @@ export default function About() {
           </div>
           <h2 className="text-2xl font-bold text-white">Our Mission</h2>
         </div>
-        <p className="text-lg text-gray-200 leading-relaxed">
-          GeoAurora provides real-time Earth and space event monitoring with easy-to-understand explanations. Our mission is to make space and Earth science accessible and exciting for everyone.
+        <p className="text-lg text-gray-200 leading-relaxed mb-4">
+          GeoAurora is an open-source platform that provides real-time Earth and space event monitoring with easy-to-understand explanations. Our mission is to make space and Earth science accessible and exciting for everyone, from curious students to professional researchers.
+        </p>
+        <p className="text-base text-gray-300 leading-relaxed">
+          Built with modern web technologies and powered by NASA's open data APIs, GeoAurora transforms complex scientific data into beautiful, interactive visualizations that help people understand the dynamic relationship between our planet and space.
         </p>
       </div>
 
@@ -31,16 +34,16 @@ export default function About() {
           <div className="p-3 bg-neon-green/20 rounded-xl border border-neon-green/40">
             <span className="text-2xl">⚙️</span>
           </div>
-          <h2 className="text-2xl font-bold text-white">Key Features</h2>
+          <h2 className="text-3xl font-bold text-white">Key Features</h2>
         </div>
         
         <div className="grid grid-cols-1 gap-4 lg:gap-6">
           <div className="bg-gray-900/50 rounded-xl p-4 lg:p-6 border border-white/10">
             <div className="flex items-center gap-3 mb-4">
               <span className="text-2xl">🛰️</span>
-              <h3 className="text-lg font-bold text-neon-green">Real-time Data</h3>
+              <h3 className="text-xl font-bold text-neon-green">Real-time Data</h3>
             </div>
-            <p className="text-gray-300 text-sm leading-relaxed">
+            <p className="text-gray-300 text-base leading-relaxed">
               Stay updated with the latest Earth events and space weather information as it happens.
             </p>
           </div>
@@ -48,9 +51,9 @@ export default function About() {
           <div className="bg-gray-900/50 rounded-xl p-4 lg:p-6 border border-white/10">
             <div className="flex items-center gap-3 mb-4">
               <span className="text-2xl">🤖</span>
-              <h3 className="text-lg font-bold text-solar-yellow">Smart Explanations</h3>
+              <h3 className="text-xl font-bold text-solar-yellow">Smart Explanations</h3>
             </div>
-            <p className="text-gray-300 text-sm leading-relaxed">
+            <p className="text-gray-300 text-base leading-relaxed">
               Complex scientific data is transformed into easy-to-understand summaries and interesting facts.
             </p>
           </div>
@@ -58,13 +61,96 @@ export default function About() {
           <div className="bg-gray-900/50 rounded-xl p-4 lg:p-6 border border-white/10">
             <div className="flex items-center gap-3 mb-4">
               <span className="text-2xl">📊</span>
-              <h3 className="text-lg font-bold text-aurora-purple">Interactive Maps</h3>
+              <h3 className="text-xl font-bold text-aurora-purple">Interactive Maps</h3>
             </div>
-            <p className="text-gray-300 text-sm leading-relaxed">
+            <p className="text-gray-300 text-base leading-relaxed">
               Explore events on interactive maps and discover detailed information about natural phenomena.
             </p>
           </div>
         </div>
+      </div>
+
+      {/* Open Source Section */}
+      <div className="bg-gradient-to-br from-gray-800/80 to-gray-900/90 backdrop-blur-xl rounded-2xl p-8 mb-8 border border-white/10 shadow-[0_20px_40px_-12px_rgba(0,0,0,0.6)]">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="p-3 bg-neon-green/20 rounded-xl border border-neon-green/40">
+            <span className="text-2xl">🔓</span>
+          </div>
+          <h2 className="text-3xl font-bold text-white">Open Source & Technology</h2>
+        </div>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="space-y-4">
+            <div className="bg-gray-900/50 rounded-xl p-4 border border-white/10">
+              <h3 className="text-xl font-bold text-neon-green mb-3">🌐 Open Source</h3>
+              <p className="text-gray-300 text-base leading-relaxed mb-3">
+                GeoAurora is completely open source and available on GitHub. We believe in transparency, community collaboration, and making science accessible to everyone.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                <span className="px-3 py-1 bg-neon-green/20 text-neon-green text-xs rounded-full border border-neon-green/40">MIT License</span>
+                <span className="px-3 py-1 bg-aurora-purple/20 text-aurora-purple text-xs rounded-full border border-aurora-purple/40">Community Driven</span>
+                <span className="px-3 py-1 bg-solar-yellow/20 text-solar-yellow text-xs rounded-full border border-solar-yellow/40">Free to Use</span>
+              </div>
+            </div>
+            
+            <div className="bg-gray-900/50 rounded-xl p-4 border border-white/10">
+              <h3 className="text-xl font-bold text-solar-yellow mb-3">⚡ Tech Stack</h3>
+              <div className="grid grid-cols-2 gap-2 text-sm">
+                <div className="text-gray-300">• React 18</div>
+                <div className="text-gray-300">• FastAPI</div>
+                <div className="text-gray-300">• Python 3.12</div>
+                <div className="text-gray-300">• Tailwind CSS</div>
+                <div className="text-gray-300">• Leaflet Maps</div>
+                <div className="text-gray-300">• Redis Cache</div>
+                <div className="text-gray-300">• NASA APIs</div>
+                <div className="text-gray-300">• Gemini AI</div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="space-y-4">
+            <div className="bg-gray-900/50 rounded-xl p-4 border border-white/10">
+              <h3 className="text-xl font-bold text-aurora-purple mb-3">📊 Data Sources</h3>
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <span className="text-blue-400">🌍</span>
+                  <span className="text-gray-300 text-base">NASA EONET - Earth events</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-yellow-400">☀️</span>
+                  <span className="text-gray-300 text-base">NASA DONKI - Space weather</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-green-400">🤖</span>
+                  <span className="text-gray-300 text-base">Google Gemini - AI explanations</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-red-400">🗄️</span>
+                  <span className="text-gray-300 text-base">Redis - Real-time caching</span>
+                </div>
+              </div>
+            </div>
+            
+            <div className="bg-gray-900/50 rounded-xl p-4 border border-white/10">
+              <h3 className="text-xl font-bold text-blue-400 mb-3">🚀 Deployment</h3>
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <span className="text-blue-400">☁️</span>
+                  <span className="text-gray-300 text-base">Google Cloud Run</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-purple-400">📦</span>
+                  <span className="text-gray-300 text-base">Docker containers</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-green-400">🔄</span>
+                  <span className="text-gray-300 text-base">CI/CD with Cloud Build</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
       </div>
 
       {/* Why It's Cool Section */}
@@ -73,7 +159,7 @@ export default function About() {
           <div className="p-3 bg-solar-yellow/20 rounded-xl border border-solar-yellow/40">
             <span className="text-2xl">✨</span>
           </div>
-          <h2 className="text-2xl font-bold text-white">Why It's Cool</h2>
+          <h2 className="text-3xl font-bold text-white">Why It's Cool</h2>
         </div>
         
         <div className="grid grid-cols-1 gap-6">
@@ -81,16 +167,16 @@ export default function About() {
             <div className="flex items-start gap-3">
               <img src="/logo.png" alt="Earth" className="w-6 h-6 mt-1 rounded" />
               <div>
-                <h3 className="font-semibold text-white mb-1">Stay Updated</h3>
-                <p className="text-gray-300 text-sm">Get real-time updates on natural events happening around the world</p>
+                <h3 className="text-lg font-semibold text-white mb-2">Stay Updated</h3>
+                <p className="text-gray-300 text-base">Get real-time updates on natural events happening around the world</p>
               </div>
             </div>
             
             <div className="flex items-start gap-3">
               <span className="text-solar-yellow text-xl mt-1">📚</span>
               <div>
-                <h3 className="font-semibold text-white mb-1">Learn Space Weather</h3>
-                <p className="text-gray-300 text-sm">Understand complex space weather phenomena in plain English</p>
+                <h3 className="text-lg font-semibold text-white mb-2">Learn Space Weather</h3>
+                <p className="text-gray-300 text-base">Understand complex space weather phenomena in plain English</p>
               </div>
             </div>
           </div>
@@ -99,16 +185,16 @@ export default function About() {
             <div className="flex items-start gap-3">
               <span className="text-aurora-purple text-xl mt-1">💡</span>
               <div>
-                <h3 className="font-semibold text-white mb-1">Discover Fun Facts</h3>
-                <p className="text-gray-300 text-sm">Learn surprising "Did you know?" science facts with every event</p>
+                <h3 className="text-lg font-semibold text-white mb-2">Discover Fun Facts</h3>
+                <p className="text-gray-300 text-base">Learn surprising "Did you know?" science facts with every event</p>
               </div>
             </div>
             
             <div className="flex items-start gap-3">
               <span className="text-neon-green text-xl mt-1">🎓</span>
               <div>
-                <h3 className="font-semibold text-white mb-1">Perfect for Everyone</h3>
-                <p className="text-gray-300 text-sm">Great for students, enthusiasts, or anyone curious about our planet and beyond</p>
+                <h3 className="text-lg font-semibold text-white mb-2">Perfect for Everyone</h3>
+                <p className="text-gray-300 text-base">Great for students, enthusiasts, or anyone curious about our planet and beyond</p>
               </div>
             </div>
           </div>
@@ -121,7 +207,7 @@ export default function About() {
           <div className="p-3 bg-neon-green/20 rounded-xl border border-neon-green/40">
             <span className="text-2xl">🙏</span>
           </div>
-          <h2 className="text-2xl font-bold text-white">Acknowledgments</h2>
+          <h2 className="text-3xl font-bold text-white">Acknowledgments</h2>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -129,16 +215,16 @@ export default function About() {
             <div className="flex items-center gap-3">
               <span className="text-2xl">🌐</span>
               <div>
-                <h3 className="font-semibold text-white">Data Sources</h3>
-                <p className="text-gray-300 text-sm">Public scientific data sources</p>
+                <h3 className="text-lg font-semibold text-white">Data Sources</h3>
+                <p className="text-gray-300 text-base">Public scientific data sources</p>
               </div>
             </div>
             
             <div className="flex items-center gap-3">
               <span className="text-2xl">🤖</span>
               <div>
-                <h3 className="font-semibold text-white">AI Technology</h3>
-                <p className="text-gray-300 text-sm">Advanced AI for content enhancement</p>
+                <h3 className="text-lg font-semibold text-white">AI Technology</h3>
+                <p className="text-gray-300 text-base">Advanced AI for content enhancement</p>
               </div>
             </div>
           </div>
@@ -147,16 +233,16 @@ export default function About() {
             <div className="flex items-center gap-3">
               <span className="text-2xl">💻</span>
               <div>
-                <h3 className="font-semibold text-white">Technology</h3>
-                <p className="text-gray-300 text-sm">Modern web technologies</p>
+                <h3 className="text-lg font-semibold text-white">Technology</h3>
+                <p className="text-gray-300 text-base">Modern web technologies</p>
               </div>
             </div>
             
             <div className="flex items-center gap-3">
               <span className="text-2xl">🖼️</span>
               <div>
-                <h3 className="font-semibold text-white">Visual Content</h3>
-                <p className="text-gray-300 text-sm">Public domain imagery</p>
+                <h3 className="text-lg font-semibold text-white">Visual Content</h3>
+                <p className="text-gray-300 text-base">Public domain imagery</p>
               </div>
             </div>
           </div>
@@ -225,7 +311,7 @@ export default function About() {
           <div className="p-3 bg-solar-yellow/20 rounded-xl border border-solar-yellow/40">
             <span className="text-2xl">🚀</span>
           </div>
-          <h2 className="text-2xl font-bold text-white">About This Project</h2>
+          <h2 className="text-3xl font-bold text-white">About This Project</h2>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -233,16 +319,16 @@ export default function About() {
             <div className="flex items-start gap-3">
               <span className="text-aurora-purple text-xl mt-1">🎯</span>
               <div>
-                <h3 className="font-semibold text-white mb-1">Project Goal</h3>
-                <p className="text-gray-300 text-sm">Making Earth and space science accessible and engaging for everyone through intuitive visualization and clear explanations.</p>
+                <h3 className="text-lg font-semibold text-white mb-2">Project Goal</h3>
+                <p className="text-gray-300 text-base">Making Earth and space science accessible and engaging for everyone through intuitive visualization and clear explanations.</p>
               </div>
             </div>
             
             <div className="flex items-start gap-3">
               <span className="text-neon-green text-xl mt-1">⚡</span>
               <div>
-                <h3 className="font-semibold text-white mb-1">Live Updates</h3>
-                <p className="text-gray-300 text-sm">Stay informed about the latest Earth and space events as they happen with regular data updates.</p>
+                <h3 className="text-lg font-semibold text-white mb-2">Live Updates</h3>
+                <p className="text-gray-300 text-base">Stay informed about the latest Earth and space events as they happen with regular data updates.</p>
               </div>
             </div>
           </div>
@@ -251,16 +337,16 @@ export default function About() {
             <div className="flex items-start gap-3">
               <span className="text-solar-yellow text-xl mt-1">🤖</span>
               <div>
-                <h3 className="font-semibold text-white mb-1">Smart Technology</h3>
-                <p className="text-gray-300 text-sm">Advanced technology transforms complex data into easy-to-understand summaries and interesting facts.</p>
+                <h3 className="text-lg font-semibold text-white mb-2">Smart Technology</h3>
+                <p className="text-gray-300 text-base">Advanced technology transforms complex data into easy-to-understand summaries and interesting facts.</p>
               </div>
             </div>
             
             <div className="flex items-start gap-3">
               <span className="text-blue-400 text-xl mt-1">📊</span>
               <div>
-                <h3 className="font-semibold text-white mb-1">Interactive Experience</h3>
-                <p className="text-gray-300 text-sm">Explore events on maps, dive into detailed information, and discover the science behind natural phenomena.</p>
+                <h3 className="text-lg font-semibold text-white mb-2">Interactive Experience</h3>
+                <p className="text-gray-300 text-base">Explore events on maps, dive into detailed information, and discover the science behind natural phenomena.</p>
               </div>
             </div>
           </div>
@@ -269,7 +355,7 @@ export default function About() {
         <div className="mt-6 pt-6 border-t border-white/10">
           <div className="flex flex-wrap gap-4 justify-center">
             <button 
-              onClick={() => window.open('mailto:kunal@encryptarx.in?subject=GeoAurora Feedback', '_blank')}
+              onClick={() => window.open('https://qldw8mkew9h.typeform.com/to/QISwIHz5', '_blank')}
               className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-neon-green/25 to-aurora-purple/25 hover:from-neon-green/35 hover:to-aurora-purple/35 text-white font-semibold rounded-lg transition-all duration-300 border border-neon-green/40 hover:border-neon-green/60"
             >
               <span className="text-lg">💬</span>
@@ -278,6 +364,7 @@ export default function About() {
           </div>
         </div>
       </div>
+
     </div>
   );
 }

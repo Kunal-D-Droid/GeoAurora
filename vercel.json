@@ -11,8 +11,12 @@
   ],
   "routes": [
     {
+      "src": "/api/(.*)",
+      "dest": "https://geoaurora-backend-432163986190.asia-south1.run.app/api/$1"
+    },
+    {
       "src": "/(.*)",
-      "dest": "/$1"
+      "dest": "/index.html"
     }
   ]
 }
