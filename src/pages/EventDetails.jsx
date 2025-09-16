@@ -242,21 +242,6 @@ export default function EventDetails() {
           </div>
         </div>
       )}
-      
-      <div className="flex gap-4 justify-center mt-4">
-        <button className="bg-gray-800 text-white rounded-full px-4 py-2 flex items-center gap-2 hover:bg-aurora-purple transition-all">
-          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22.46 6c-.77.35-1.6.58-2.47.69a4.3 4.3 0 0 0 1.88-2.37 8.59 8.59 0 0 1-2.72 1.04A4.28 4.28 0 0 0 16.11 4c-2.37 0-4.29 1.92-4.29 4.29 0 .34.04.67.11.99C7.69 8.99 4.07 7.13 1.64 4.15c-.37.64-.58 1.38-.58 2.17 0 1.5.76 2.82 1.92 3.6a4.28 4.28 0 0 1-1.94-.54v.05c0 2.1 1.5 3.85 3.5 4.25-.36.1-.74.16-1.13.16-.28 0-.54-.03-.8-.08.54 1.7 2.1 2.94 3.95 2.97A8.6 8.6 0 0 1 2 19.54a12.13 12.13 0 0 0 6.56 1.92c7.88 0 12.2-6.53 12.2-12.2 0-.19 0-.37-.01-.56A8.7 8.7 0 0 0 24 4.59a8.5 8.5 0 0 1-2.54.7z"/></svg>
-          Twitter
-        </button>
-        <button className="bg-gray-800 text-white rounded-full px-4 py-2 flex items-center gap-2 hover:bg-aurora-purple transition-all">
-          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.04c-5.5 0-9.96 4.46-9.96 9.96 0 4.41 3.6 8.07 8.24 8.93v-6.32h-2.48v-2.61h2.48v-2c0-2.45 1.49-3.8 3.68-3.8 1.07 0 2.19.19 2.19.19v2.41h-1.23c-1.21 0-1.59.75-1.59 1.52v1.68h2.7l-.43 2.61h-2.27v6.32c4.64-.86 8.24-4.52 8.24-8.93 0-5.5-4.46-9.96-9.96-9.96z"/></svg>
-          Instagram
-        </button>
-        <button className="bg-gray-800 text-white rounded-full px-4 py-2 flex items-center gap-2 hover:bg-aurora-purple transition-all">
-          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M3.9 12.5c0-.28.22-.5.5-.5h15.2c.28 0 .5.22.5.5s-.22.5-.5.5H4.4a.5.5 0 0 1-.5-.5z"/></svg>
-          Copy Link
-        </button>
-      </div>
     </div>
   );
 }
