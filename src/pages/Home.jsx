@@ -199,6 +199,9 @@ export default function Home() {
               <div className="flex-1 h-px bg-gradient-to-r from-neon-green/50 to-transparent"></div>
             </div>
             <div className="grid grid-cols-1 gap-4">
+              {earthEvents.length === 0 && (
+                <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4 text-emerald-200">No recent Earth events available.</div>
+              )}
               {earthEvents.map((event, idx) => {
                 const eventType = getEventType(event);
                 const icon = getEventIcon(eventType);
@@ -260,7 +263,15 @@ export default function Home() {
             </div>
             <div className="grid grid-cols-1 gap-4">
               {spaceWeatherEvents.length === 0 ? (
-                <div className="text-gray-400 text-center py-8">No space weather events available.</div>
+                <div className="rounded-xl sm:rounded-2xl border border-yellow-500/40 bg-yellow-500/10 p-4 sm:p-5 text-yellow-200">
+                  <div className="flex items-start gap-3">
+                    <span className="text-xl">⚠️</span>
+                    <div>
+                      <div className="font-semibold mb-1">NASA DONKI temporarily unavailable</div>
+                      <div className="text-sm">Space weather data couldn't be fetched right now. Please try again in a few minutes.</div>
+                    </div>
+                  </div>
+                </div>
               ) : spaceWeatherEvents.map((sw) => {
                 const eventType = getEventType(sw);
                 const icon = getEventIcon(eventType);

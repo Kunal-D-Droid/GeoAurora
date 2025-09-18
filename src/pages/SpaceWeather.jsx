@@ -444,6 +444,19 @@ export default function SpaceWeather() {
         <span className="text-2xl sm:text-3xl lg:text-4xl">☀️</span>
         <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-solar-yellow">Space Weather</h2>
       </div>
+      {events.length === 0 ? (
+        <div className="w-full mb-6">
+          <div className="rounded-xl sm:rounded-2xl border border-yellow-500/40 bg-yellow-500/10 p-4 sm:p-5 text-yellow-200">
+            <div className="flex items-start gap-3">
+              <span className="text-xl sm:text-2xl">⚠️</span>
+              <div>
+                <div className="font-semibold mb-1">NASA DONKI temporarily unavailable</div>
+                <div className="text-sm">Space weather data couldn't be fetched right now. This is usually a short outage on NASA's side. Please try again in a few minutes.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : (
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
         {processedEvents.map((event, idx) => {
           const { stableId, mainSummary, funFact, categoryLabel, config, eventData, eventPhoto, isLoadingFact } = event;
@@ -585,6 +598,7 @@ export default function SpaceWeather() {
           );
         })}
       </div>
+      )}
     </div>
   );
 }
