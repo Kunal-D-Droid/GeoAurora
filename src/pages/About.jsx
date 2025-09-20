@@ -1,4 +1,5 @@
 import React from 'react';
+import BuyMeCoffeeButton from '../components/BuyMeCoffeeButton';
 
 export default function About() {
   return (
@@ -276,7 +277,7 @@ export default function About() {
             <p className="text-gray-300 mb-4">Cybersecurity Researcher & Science Enthusiast</p>
             <div className="flex flex-wrap gap-3">
               <a 
-                href="mailto:kunal@encryptarx.in" 
+                href="mailto:kunal.das@encryptarx.in" 
                 className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-aurora-purple/25 to-neon-green/25 hover:from-aurora-purple/35 hover:to-neon-green/35 text-white font-semibold text-sm rounded-lg transition-all duration-300 border border-aurora-purple/40 hover:border-aurora-purple/60"
               >
                 <span className="text-lg">📧</span>
@@ -301,6 +302,65 @@ export default function About() {
                 <span>LinkedIn</span>
               </a>
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Support Section */}
+      <div className="bg-gradient-to-br from-yellow-800/40 to-orange-800/40 backdrop-blur-xl rounded-2xl p-8 mb-8 border border-yellow-400/30 shadow-[0_20px_40px_-12px_rgba(251,191,36,0.3)]">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="p-3 bg-yellow-500/20 rounded-xl border border-yellow-400/40">
+            <span className="text-2xl">☕</span>
+          </div>
+          <h2 className="text-3xl font-bold text-white">Support the Project</h2>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <div className="space-y-4">
+            <div className="flex items-start gap-3">
+              <span className="text-yellow-400 text-xl mt-1">💰</span>
+              <div>
+                <h3 className="text-lg font-semibold text-white mb-2">Ongoing Costs</h3>
+                <p className="text-gray-200 text-base">Running GeoAurora requires continuous investment in cloud services, AI APIs, and data processing to keep the platform live and updated.</p>
+              </div>
+            </div>
+            
+            <div className="flex items-start gap-3">
+              <span className="text-orange-400 text-xl mt-1">🔄</span>
+              <div>
+                <h3 className="text-lg font-semibold text-white mb-2">Real-time Data</h3>
+                <p className="text-gray-200 text-base">24/7 monitoring and processing of NASA data streams, AI content generation, and global CDN distribution.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div className="space-y-4">
+            <div className="flex items-start gap-3">
+              <span className="text-green-400 text-xl mt-1">🌍</span>
+              <div>
+                <h3 className="text-lg font-semibold text-white mb-2">Free for Everyone</h3>
+                <p className="text-gray-200 text-base">GeoAurora remains completely free and open-source. Your support helps maintain this service for the global community.</p>
+              </div>
+            </div>
+            
+            <div className="flex items-start gap-3">
+              <span className="text-blue-400 text-xl mt-1">🚀</span>
+              <div>
+                <h3 className="text-lg font-semibold text-white mb-2">Future Development</h3>
+                <p className="text-gray-200 text-base">Support enables new features, better AI explanations, and expanded data sources for an even better experience.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div className="bg-yellow-500/10 rounded-xl p-6 border border-yellow-400/30">
+          <div className="text-center">
+            <h3 className="text-xl font-bold text-white mb-3">Help Keep GeoAurora Running</h3>
+            <p className="text-gray-200 mb-4">Every contribution, no matter how small, helps cover the operational costs and keeps this educational platform free for everyone.</p>
+            <div className="flex justify-center">
+              <BuyMeCoffeeButton variant="about" />
+            </div>
+            <p className="text-sm text-gray-300 mt-3">Thank you for supporting open science and education! 🙏</p>
           </div>
         </div>
       </div>

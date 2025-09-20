@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import BuyMeCoffeeButton from './BuyMeCoffeeButton';
 
 const navItems = [
   { name: 'Daily Highlights', to: '/', icon: (
@@ -42,7 +43,12 @@ export default function Navbar() {
           ))}
         </ul>
       </nav>
-      <div className="mt-auto text-sm text-gray-500 px-2 pt-8">&copy; {new Date().getFullYear()} GeoAurora</div>
+      <div className="mt-auto px-2 pt-8">
+        <div className="mb-4">
+          <BuyMeCoffeeButton variant="sidebar" />
+        </div>
+        <div className="text-sm text-gray-500">&copy; {new Date().getFullYear()} GeoAurora</div>
+      </div>
     </aside>
   );
 }
