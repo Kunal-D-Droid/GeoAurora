@@ -43,7 +43,7 @@ function App() {
   // Mobile Layout
   if (isMobile) {
     return (
-      <Router>
+      <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <MobileLayout>
           <Routes>
             <Route path="/" element={<MobilePageWrapper><Home /></MobilePageWrapper>} />
@@ -60,7 +60,7 @@ function App() {
 
   // Desktop Layout (Original)
   return (
-    <Router>
+    <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <div className="min-h-screen bg-gray-900 text-white flex">
         <Navbar />
         <main className="flex-1 p-8 overflow-y-auto">

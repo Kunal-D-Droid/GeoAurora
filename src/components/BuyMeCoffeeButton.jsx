@@ -1,43 +1,7 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 
 export default function BuyMeCoffeeButton({ variant = 'default', className = '' }) {
-  const buttonRef = useRef(null);
-
-  useEffect(() => {
-    // Check if the script is already loaded
-    if (window.buyMeACoffee) {
-      return;
-    }
-
-    // Load the Buy Me a Coffee script only once
-    const existingScript = document.querySelector('script[src*="buymeacoffee.com"]');
-    if (existingScript) {
-      return;
-    }
-
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = 'https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js';
-    script.setAttribute('data-name', 'bmc-button');
-    script.setAttribute('data-slug', 'sherl0ck');
-    script.setAttribute('data-color', '#FFDD00');
-    script.setAttribute('data-emoji', '☕');
-    script.setAttribute('data-font', 'Cookie');
-    script.setAttribute('data-text', 'Buy me a coffee');
-    script.setAttribute('data-outline-color', '#000000');
-    script.setAttribute('data-font-color', '#000000');
-    script.setAttribute('data-coffee-color', '#ffffff');
-
-    // Add the script to the document
-    document.head.appendChild(script);
-
-    // Cleanup function to remove the script when component unmounts
-    return () => {
-      if (document.head.contains(script)) {
-        document.head.removeChild(script);
-      }
-    };
-  }, []);
+  // Simplified approach - just use a direct link instead of the problematic script
 
   // Fallback button in case the script doesn't load
   const baseClasses = "inline-flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-all duration-300 border shadow-lg hover:shadow-xl";
@@ -49,15 +13,12 @@ export default function BuyMeCoffeeButton({ variant = 'default', className = '' 
   };
 
   return (
-    <div ref={buttonRef} className={className}>
-      {/* The Buy Me a Coffee script will inject the button here */}
-      {/* Fallback button - shown if script doesn't load */}
+    <div className={className}>
       <a
         href="https://buymeacoffee.com/kunaldas"
         target="_blank"
         rel="noopener noreferrer"
         className={`${baseClasses} ${variants[variant]}`}
-        id="fallback-bmc-button"
       >
         <span className="text-lg">☕</span>
         <span>Buy me a coffee</span>

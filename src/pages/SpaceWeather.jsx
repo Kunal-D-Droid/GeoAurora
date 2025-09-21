@@ -448,10 +448,14 @@ export default function SpaceWeather() {
         <div className="w-full mb-6">
           <div className="rounded-xl sm:rounded-2xl border border-yellow-500/40 bg-yellow-500/10 p-4 sm:p-5 text-yellow-200">
             <div className="flex items-start gap-3">
-              <span className="text-xl sm:text-2xl">⚠️</span>
+              <span className="text-xl sm:text-2xl">🚨</span>
               <div>
-                <div className="font-semibold mb-1">NASA DONKI temporarily unavailable</div>
-                <div className="text-sm">Space weather data couldn't be fetched right now. This is usually a short outage on NASA's side. Please try again in a few minutes.</div>
+                <div className="font-semibold mb-1">NASA DONKI Service Unavailable</div>
+                <div className="text-sm mb-3">NASA's space weather API is currently experiencing server issues (HTTP 503). This is a temporary outage on NASA's infrastructure.</div>
+                <div className="text-xs text-yellow-300/80">
+                  <div>• Data will automatically refresh when service is restored</div>
+                  <div>• Last checked: {new Date().toLocaleTimeString()}</div>
+                </div>
               </div>
             </div>
           </div>
