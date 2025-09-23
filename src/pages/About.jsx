@@ -22,7 +22,7 @@ export default function About() {
           <h2 className="text-2xl font-bold text-white">Our Mission</h2>
         </div>
         <p className="text-lg text-gray-200 leading-relaxed mb-4">
-          GeoAurora is an free and open-source platform that provides real-time Earth and space event monitoring with easy-to-understand explanations. Our mission is to make space and Earth science accessible and exciting for everyone, from curious students to professional researchers.
+          GeoAurora is a free and open-source platform that provides real-time Earth and space event monitoring with easy-to-understand explanations. Our mission is to make space and Earth science accessible and exciting for everyone, from curious students to professional researchers.
         </p>
         <p className="text-base text-gray-300 leading-relaxed">
           Built with modern web technologies and powered by NASA's open data APIs, GeoAurora transforms complex scientific data into beautiful, interactive visualizations that help people understand the dynamic relationship between our planet and space.
