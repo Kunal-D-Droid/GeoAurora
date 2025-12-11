@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { getApiUrl } from '../config/api';
 
 export default function DailyHighlights() {
   const [earthEvents, setEarthEvents] = useState([]);
@@ -14,8 +15,8 @@ export default function DailyHighlights() {
       try {
         setLoading(true);
         const [eonetRes, donkiRes] = await Promise.all([
-      axios.get('https://geoaurora-backend-432163986190.asia-south1.run.app/api/eonet'),
-      axios.get('https://geoaurora-backend-432163986190.asia-south1.run.app/api/donki'),
+      axios.get(getApiUrl('/api/eonet')),
+      axios.get(getApiUrl('/api/donki')),
         ]);
         
       const eonetEvents = eonetRes.data.events || [];
@@ -76,7 +77,7 @@ export default function DailyHighlights() {
         try {
           const title = typeof event.title === 'string' && event.title.trim() ? event.title : (event.note || 'Event');
           const description = typeof event.description === 'string' ? event.description : undefined;
-          const { data } = await axios.post('https://geoaurora-backend-432163986190.asia-south1.run.app/api/summary', { title, description });
+          const { data } = await axios.post(getApiUrl('/api/summary'), { title, description });
           setSummaries(s => ({ ...s, [idx]: data.summary }));
         } catch (err) {
           setSummaries(s => ({ ...s, [idx]: 'AI summary unavailable.' }));

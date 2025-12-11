@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { getApiUrl } from '../config/api';
 
 export default function Home() {
   const [earthEvents, setEarthEvents] = useState([]);
   const [spaceWeatherEvents, setSpaceWeatherEvents] = useState([]);
+  const [asteroidEvents, setAsteroidEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const seededRef = useRef(false);
 
@@ -37,7 +39,9 @@ export default function Home() {
       'Coronal Mass Ejection (CME)': '☀️',
       'Solar Flare': '⚡',
       'High-speed Solar Wind / Coronal Hole': '🌪️',
-      'Solar Energetic Particles (SEP)': '✨'
+      'Solar Energetic Particles (SEP)': '✨',
+      'Near-Earth Asteroid': '🪨',
+      'Hazardous Asteroid': '☄️'
     };
     return icons[eventType] || '🌍';
   };
@@ -52,7 +56,9 @@ export default function Home() {
       'Coronal Mass Ejection (CME)': 'from-purple-500/20 to-blue-500/20 border-purple-400/40',
       'Solar Flare': 'from-yellow-500/20 to-orange-500/20 border-yellow-400/40',
       'High-speed Solar Wind / Coronal Hole': 'from-cyan-500/20 to-blue-500/20 border-cyan-400/40',
-      'Solar Energetic Particles (SEP)': 'from-pink-500/20 to-purple-500/20 border-pink-400/40'
+      'Solar Energetic Particles (SEP)': 'from-pink-500/20 to-purple-500/20 border-pink-400/40',
+      'Near-Earth Asteroid': 'from-gray-500/20 to-slate-500/20 border-gray-400/40',
+      'Hazardous Asteroid': 'from-red-500/20 to-orange-500/20 border-red-400/40'
     };
     return colors[eventType] || 'from-gray-500/20 to-slate-500/20 border-gray-400/40';
   };
@@ -79,17 +85,21 @@ export default function Home() {
         if (!seededRef.current) {
           setLoading(true);
         }
-        const [eonetRes, donkiRes] = await Promise.all([
-          axios.get('https://geoaurora-backend-432163986190.asia-south1.run.app/api/eonet'),
-          axios.get('https://geoaurora-backend-432163986190.asia-south1.run.app/api/donki'),
+        const [eonetRes, donkiRes, neoRes] = await Promise.all([
+          axios.get(getApiUrl('/api/eonet')),
+          axios.get(getApiUrl('/api/donki')),
+          axios.get(getApiUrl('/api/neo')),
         ]);
         const earth = eonetRes.data.events?.slice(0, 3) || [];
         const space = Array.isArray(donkiRes.data) ? donkiRes.data.slice(0, 3) : [];
+        const asteroids = Array.isArray(neoRes.data) ? neoRes.data.slice(0, 3) : [];
         setEarthEvents(earth);
         setSpaceWeatherEvents(space);
+        setAsteroidEvents(asteroids);
         try {
           sessionStorage.setItem('home_eonet_v1', JSON.stringify({ t: Date.now(), data: earth }));
           sessionStorage.setItem('home_donki_v1', JSON.stringify({ t: Date.now(), data: space }));
+          sessionStorage.setItem('home_neo_v1', JSON.stringify({ t: Date.now(), data: asteroids }));
         } catch {}
       } catch (err) {
         console.error('Home fetch error', err);
@@ -101,6 +111,7 @@ export default function Home() {
     try {
       const cachedE = sessionStorage.getItem('home_eonet_v1');
       const cachedD = sessionStorage.getItem('home_donki_v1');
+      const cachedN = sessionStorage.getItem('home_neo_v1');
       let seeded = false;
       if (cachedE) {
         const { t, data } = JSON.parse(cachedE);
@@ -116,6 +127,13 @@ export default function Home() {
           seeded = true;
         } else { sessionStorage.removeItem('home_donki_v1'); }
       }
+      if (cachedN) {
+        const { t, data } = JSON.parse(cachedN);
+        if (Date.now() - t <= 15 * 60 * 1000) {
+          setAsteroidEvents(data || []);
+          seeded = true;
+        } else { sessionStorage.removeItem('home_neo_v1'); }
+      }
       if (seeded) {
         seededRef.current = true;
         setLoading(false);
@@ -128,12 +146,18 @@ export default function Home() {
 
   return (
     <div className="p-0">
-      {/* Header */}
-      <div className="flex items-center gap-3 mb-8">
-        <span className="text-5xl">✔️</span>
-        <div>
-          <h1 className="text-4xl font-bold text-aurora-purple">What's today?</h1>
-          <p className="text-gray-400 text-lg">Overview of recent Earth and Space events</p>
+      {/* Simple Header */}
+      <div className="mb-8 lg:mb-10">
+        <div className="flex items-center gap-4 mb-3">
+          <span className="text-5xl lg:text-6xl">✨</span>
+          <div>
+            <h1 className="text-4xl lg:text-5xl font-bold text-white">
+              Daily Highlights
+            </h1>
+            <p className="text-gray-400 text-base lg:text-lg mt-1">
+              Real-time updates from NASA APIs
+            </p>
+          </div>
         </div>
       </div>
 
@@ -190,15 +214,19 @@ export default function Home() {
           </div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10">
           {/* Earth Events Panel */}
-          <div className="w-full">
-            <div className="flex items-center gap-3 mb-4 lg:mb-6">
-              <img src="/logo.png" alt="Earth Events" className="w-6 h-6 lg:w-8 lg:h-8 rounded-lg" />
-              <h2 className="text-xl lg:text-2xl font-bold text-neon-green">Earth Events</h2>
-              <div className="flex-1 h-px bg-gradient-to-r from-neon-green/50 to-transparent"></div>
+          <div className="w-full space-y-5">
+            <div>
+              <div className="flex items-center gap-3 mb-2">
+                <img src="/logo.png" alt="Earth Events" className="w-8 h-8 lg:w-10 lg:h-10 rounded-lg" />
+                <h2 className="text-xl lg:text-2xl font-bold text-neon-green">
+                  Earth Events
+                </h2>
+              </div>
+              <div className="h-px bg-gradient-to-r from-neon-green/50 to-transparent"></div>
             </div>
-            <div className="grid grid-cols-1 gap-4">
+            <div className="grid grid-cols-1 gap-5">
               {earthEvents.length === 0 && (
                 <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4 text-emerald-200">No recent Earth events available.</div>
               )}
@@ -208,40 +236,39 @@ export default function Home() {
                 const colorClass = getEventColor(eventType);
                 const displayTitle = (event.title || '').length > 60 ? `${event.title.slice(0,60)}…` : (event.title || 'Event');
                 const desc = (event.description || '').slice(0, 120);
+                const randomImage = earthImages[idx % earthImages.length];
                 
                 return (
-                  <div key={event.id} className={`group relative rounded-xl lg:rounded-2xl overflow-hidden border-2 ${colorClass} bg-gradient-to-br from-gray-800/80 to-gray-900/90 backdrop-blur-xl shadow-[0_20px_40px_-12px_rgba(0,0,0,0.6)] hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.8)] transition-all duration-500`}>
-                    {/* Decorative elements */}
-                    <div className="absolute top-0 right-0 w-16 h-16 lg:w-20 lg:h-20 bg-gradient-to-bl from-white/5 to-transparent rounded-bl-full" />
-                    <div className="absolute bottom-0 left-0 w-12 h-12 lg:w-16 lg:h-16 bg-gradient-to-tr from-white/5 to-transparent rounded-tr-full" />
-                    
-                    <div className="p-4 lg:p-5 relative z-10">
+                  <div key={event.id} className={`group relative rounded-xl lg:rounded-2xl overflow-hidden border ${colorClass} bg-gray-800/50 backdrop-blur-sm hover:bg-gray-800/70 transition-all duration-300`}>
+                    <div className="p-4 lg:p-5">
                       {/* Event type and icon */}
-                      <div className="flex items-center gap-3 mb-3">
-                        <div className="p-2 bg-white/10 backdrop-blur-md rounded-xl border border-white/20">
+                      <div className="flex items-start gap-3 mb-3">
+                        <div className="p-2 bg-white/5 rounded-lg border border-white/10">
                           <span className="text-xl">{icon}</span>
                         </div>
-                        <div>
-                          <div className="text-base font-semibold text-gray-300">{eventType}</div>
-                          <div className="text-sm text-gray-400">{formatDate(event.geometry?.[0]?.date)}</div>
+                        <div className="flex-1 min-w-0">
+                          <div className="text-sm lg:text-base font-semibold text-gray-200 mb-1">{eventType}</div>
+                          <div className="text-xs text-gray-400">{formatDate(event.geometry?.[0]?.date)}</div>
                         </div>
                       </div>
                       
                       {/* Title */}
-                      <h3 className="text-lg lg:text-xl font-bold text-white mb-2 leading-snug">{displayTitle}</h3>
+                      <h3 className="text-base lg:text-lg font-bold text-white mb-2 leading-tight line-clamp-2">{displayTitle}</h3>
                       
                       {/* Description */}
-                      <div className="text-base lg:text-base text-gray-200 mb-3 leading-relaxed">
+                      <div className="text-sm text-gray-300 mb-4 leading-relaxed line-clamp-2">
                         {desc}{(event.description||'').length>120?'…':''}
                       </div>
                       
                       {/* Footer */}
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm uppercase tracking-wide bg-white/5 text-gray-300 border border-white/10 px-2 py-1 rounded-full">EONET</span>
+                      <div className="flex items-center justify-between pt-3 border-t border-white/5">
+                        <span className="text-xs uppercase tracking-wide bg-white/5 text-gray-400 border border-white/10 px-2 py-1 rounded-full">
+                          EONET
+                        </span>
                         <Link 
                           to={`/event/${event.id}`} 
                           state={{ event }} 
-                          className="inline-flex items-center gap-2 px-3 lg:px-4 py-2 bg-gradient-to-r from-neon-green/25 to-aurora-purple/25 hover:from-neon-green/35 hover:to-aurora-purple/35 text-white font-semibold text-sm lg:text-base rounded-lg transition-all duration-300 border border-neon-green/40 hover:border-neon-green/60 min-h-[44px]"
+                          className="inline-flex items-center gap-2 px-4 py-2 bg-neon-green/20 hover:bg-neon-green/30 text-neon-green font-medium text-sm rounded-lg transition-all duration-200 border border-neon-green/30 hover:border-neon-green/50"
                         >
                           <span>Explore</span>
                           <span>→</span>
@@ -255,13 +282,17 @@ export default function Home() {
           </div>
 
           {/* Space Weather Panel */}
-          <div className="w-full">
-            <div className="flex items-center gap-3 mb-4 lg:mb-6">
-              <span className="text-2xl lg:text-3xl">☀️</span>
-              <h2 className="text-xl lg:text-2xl font-bold text-solar-yellow">Space Weather</h2>
-              <div className="flex-1 h-px bg-gradient-to-r from-solar-yellow/50 to-transparent"></div>
+          <div className="w-full space-y-5">
+            <div>
+              <div className="flex items-center gap-3 mb-2">
+                <span className="text-3xl lg:text-4xl">☀️</span>
+                <h2 className="text-xl lg:text-2xl font-bold text-solar-yellow">
+                  Space Weather
+                </h2>
+              </div>
+              <div className="h-px bg-gradient-to-r from-solar-yellow/50 to-transparent"></div>
             </div>
-            <div className="grid grid-cols-1 gap-4">
+            <div className="grid grid-cols-1 gap-5">
               {spaceWeatherEvents.length === 0 ? (
                 <div className="rounded-xl sm:rounded-2xl border border-yellow-500/40 bg-yellow-500/10 p-4 sm:p-5 text-yellow-200">
                   <div className="flex items-start gap-3">
@@ -279,44 +310,125 @@ export default function Home() {
                 const displayTitle = (sw.note || 'Space Weather Event');
                 
                 return (
-                  <div key={sw.activityID || `${sw.startTime}|${sw.note}`} className={`group relative rounded-2xl overflow-hidden border-2 ${colorClass} bg-gradient-to-br from-gray-800/80 to-gray-900/90 backdrop-blur-xl shadow-[0_20px_40px_-12px_rgba(0,0,0,0.6)] hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.8)] transition-all duration-500`}>
-                    {/* Decorative elements */}
-                    <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-white/5 to-transparent rounded-bl-full" />
-                    <div className="absolute bottom-0 left-0 w-16 h-16 bg-gradient-to-tr from-white/5 to-transparent rounded-tr-full" />
-                    
-                    <div className="p-5 relative z-10">
+                  <div key={sw.activityID || `${sw.startTime}|${sw.note}`} className={`group relative rounded-xl lg:rounded-2xl overflow-hidden border ${colorClass} bg-gray-800/50 backdrop-blur-sm hover:bg-gray-800/70 transition-all duration-300`}>
+                    <div className="p-4 lg:p-5">
                       {/* Event type and icon */}
-                      <div className="flex items-center gap-3 mb-3">
-                        <div className="p-2 bg-white/10 backdrop-blur-md rounded-xl border border-white/20">
+                      <div className="flex items-start gap-3 mb-3">
+                        <div className="p-2 bg-white/5 rounded-lg border border-white/10">
                           <span className="text-xl">{icon}</span>
                         </div>
-                        <div>
-                          <div className="text-base font-semibold text-gray-300">{eventType}</div>
-                          <div className="text-sm text-gray-400">{formatDate(sw.startTime)}</div>
+                        <div className="flex-1 min-w-0">
+                          <div className="text-sm lg:text-base font-semibold text-gray-200 mb-1">{eventType}</div>
+                          <div className="text-xs text-gray-400">{formatDate(sw.startTime)}</div>
                         </div>
                       </div>
                       
                       {/* Title */}
-                      <h3 className="text-xl font-bold text-white mb-2 leading-snug">
+                      <h3 className="text-base lg:text-lg font-bold text-white mb-2 leading-tight line-clamp-2">
                         {displayTitle.length>60?displayTitle.slice(0,60)+'…':displayTitle}
                       </h3>
                       
                       {/* Summary */}
-                      <div className="text-base text-gray-200 mb-3 leading-relaxed">
+                      <div className="text-sm text-gray-300 mb-4 leading-relaxed line-clamp-2">
                         <span className="font-semibold text-aurora-purple">Summary:</span> {(sw.note || '').slice(0, 100)}{(sw.note||'').length>100?'…':''}
                       </div>
                       
                       {/* Footer */}
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm uppercase tracking-wide bg-white/5 text-gray-300 border border-white/10 px-2 py-1 rounded-full">DONKI</span>
+                      <div className="flex items-center justify-between pt-3 border-t border-white/5">
+                        <span className="text-xs uppercase tracking-wide bg-white/5 text-gray-400 border border-white/10 px-2 py-1 rounded-full">
+                          DONKI
+                        </span>
                         <Link 
                           to={`/event/${sw.activityID || 'space'}`} 
                           state={{ event: sw }} 
-                          className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-solar-yellow/25 to-aurora-purple/25 hover:from-solar-yellow/35 hover:to-aurora-purple/35 text-white font-semibold text-base rounded-lg transition-all duration-300 border border-solar-yellow/40 hover:border-solar-yellow/60"
+                          className="inline-flex items-center gap-2 px-4 py-2 bg-solar-yellow/20 hover:bg-solar-yellow/30 text-solar-yellow font-medium text-sm rounded-lg transition-all duration-200 border border-solar-yellow/30 hover:border-solar-yellow/50"
                         >
                           <span>Explore</span>
                           <span>→</span>
                         </Link>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Asteroids Panel */}
+          <div className="w-full space-y-5">
+            <div>
+              <div className="flex items-center gap-3 mb-2">
+                <span className="text-3xl lg:text-4xl">🪨</span>
+                <h2 className="text-xl lg:text-2xl font-bold text-gray-300">
+                  Asteroids
+                </h2>
+              </div>
+              <div className="h-px bg-gradient-to-r from-gray-300/50 to-transparent"></div>
+            </div>
+            <div className="grid grid-cols-1 gap-5">
+              {asteroidEvents.length === 0 ? (
+                <div className="rounded-xl sm:rounded-2xl border border-gray-500/40 bg-gray-500/10 p-4 sm:p-5 text-gray-200">
+                  <div className="flex items-start gap-3">
+                    <span className="text-xl">🔍</span>
+                    <div>
+                      <div className="font-semibold mb-1">No asteroids approaching</div>
+                      <div className="text-sm">No near-Earth asteroids in the next 7 days.</div>
+                    </div>
+                  </div>
+                </div>
+              ) : asteroidEvents.map((asteroid) => {
+                const eventType = asteroid.hazardous ? 'Hazardous Asteroid' : 'Near-Earth Asteroid';
+                const icon = getEventIcon(eventType);
+                const colorClass = getEventColor(eventType);
+                const displayTitle = (asteroid.title || 'Unknown Asteroid');
+                const formatDistance = (km) => {
+                  if (!km) return 'Unknown';
+                  if (km >= 1000000) return `${(km / 1000000).toFixed(2)}M km`;
+                  if (km >= 1000) return `${(km / 1000).toFixed(2)}K km`;
+                  return `${km.toFixed(0)} km`;
+                };
+                const formatSize = (min, max) => {
+                  if (!min || !max) return 'Unknown';
+                  if (min === max) return `${min.toFixed(0)}m`;
+                  return `${min.toFixed(0)}-${max.toFixed(0)}m`;
+                };
+                
+                return (
+                  <div key={asteroid.activityID || `${asteroid.startTime}|${asteroid.title}`} className={`group relative rounded-xl lg:rounded-2xl overflow-hidden border ${colorClass} bg-gray-800/50 backdrop-blur-sm hover:bg-gray-800/70 transition-all duration-300`}>
+                    <div className="p-4 lg:p-5">
+                      {/* Event type and icon */}
+                      <div className="flex items-start gap-3 mb-3">
+                        <div className="p-2 bg-white/5 rounded-lg border border-white/10">
+                          <span className="text-xl">{icon}</span>
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="text-sm lg:text-base font-semibold text-gray-200 mb-1">{eventType}</div>
+                          <div className="text-xs text-gray-400">{formatDate(asteroid.startTime)}</div>
+                        </div>
+                        {asteroid.hazardous && (
+                          <div className="px-2 py-1 bg-red-500/20 border border-red-500/40 rounded-lg text-red-300 text-xs font-semibold">
+                            ⚠️
+                          </div>
+                        )}
+                      </div>
+                      
+                      {/* Title */}
+                      <h3 className="text-base lg:text-lg font-bold text-white mb-3 leading-tight line-clamp-2">
+                        {displayTitle.length>60?displayTitle.slice(0,60)+'…':displayTitle}
+                      </h3>
+                      
+                      {/* Asteroid details */}
+                      <div className="text-sm text-gray-300 mb-4 space-y-1.5 bg-gray-800/30 rounded-lg p-3 border border-white/5">
+                        <div className="flex justify-between"><span className="text-gray-400">Size:</span> <span className="font-medium">{formatSize(asteroid.diameter_min, asteroid.diameter_max)}</span></div>
+                        <div className="flex justify-between"><span className="text-gray-400">Distance:</span> <span className="font-medium">{formatDistance(asteroid.miss_distance)}</span></div>
+                        <div className="flex justify-between"><span className="text-gray-400">Velocity:</span> <span className="font-medium">{asteroid.velocity?.toFixed(2) || 'Unknown'} km/s</span></div>
+                      </div>
+                      
+                      {/* Footer */}
+                      <div className="flex items-center pt-3 border-t border-white/5">
+                        <span className="text-xs uppercase tracking-wide bg-white/5 text-gray-400 border border-white/10 px-2 py-1 rounded-full">
+                          NEO
+                        </span>
                       </div>
                     </div>
                   </div>

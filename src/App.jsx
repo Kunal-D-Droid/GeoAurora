@@ -8,6 +8,7 @@ import { useMobile } from './hooks/useMobile';
 import Home from './pages/Home';
 import EarthEvents from './pages/EarthEvents';
 import SpaceWeather from './pages/SpaceWeather';
+import Asteroids from './pages/Asteroids';
 import DailyHighlights from './pages/DailyHighlights';
 import EventDetails from './pages/EventDetails';
 import About from './pages/About';
@@ -49,6 +50,7 @@ function App() {
             <Route path="/" element={<MobilePageWrapper><Home /></MobilePageWrapper>} />
             <Route path="/earth-events" element={<MobilePageWrapper><EarthEvents /></MobilePageWrapper>} />
             <Route path="/space-weather" element={<MobilePageWrapper><SpaceWeather /></MobilePageWrapper>} />
+            <Route path="/asteroids" element={<MobilePageWrapper><Asteroids /></MobilePageWrapper>} />
             <Route path="/highlights" element={<MobilePageWrapper><DailyHighlights /></MobilePageWrapper>} />
             <Route path="/event/:id" element={<MobilePageWrapper><EventDetails /></MobilePageWrapper>} />
             <Route path="/about" element={<MobilePageWrapper><About /></MobilePageWrapper>} />
@@ -68,13 +70,14 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/earth-events" element={<EarthEvents />} />
             <Route path="/space-weather" element={<SpaceWeather />} />
+            <Route path="/asteroids" element={<Asteroids />} />
             <Route path="/highlights" element={<DailyHighlights />} />
             <Route path="/event/:id" element={<EventDetails />} />
             <Route path="/about" element={<About />} />
           </Routes>
           <footer className="mt-10 border-t border-white/10 pt-6 text-sm text-gray-400 flex justify-between items-center">
             <span>&copy; {new Date().getFullYear()} GeoAurora - Made with ❤️ for Space Enthusiasts</span>
-            <span>Data: NASA EONET & DONKI</span>
+            <span>Data: NASA APIs</span>
           </footer>
         </main>
       </div>

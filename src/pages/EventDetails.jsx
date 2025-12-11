@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import ResponsiveMapView from '../components/ResponsiveMapView';
+import { getApiUrl } from '../config/api';
 
 export default function EventDetails() {
   // For demo, use location.state or fallback mock data
@@ -66,7 +67,7 @@ export default function EventDetails() {
       if (!summary || !fact) {
         try {
           setLoading(true);
-          const { data } = await axios.post('https://geoaurora-backend-432163986190.asia-south1.run.app/api/summary', { title, description });
+          const { data } = await axios.post(getApiUrl('/api/summary'), { title, description });
           const text = data.summary || '';
           const parts = text.split('Fun Fact:');
           const main = parts[0]?.trim() || '';
@@ -97,7 +98,7 @@ export default function EventDetails() {
             }
           }
         } catch {}
-        const { data: detail } = await axios.post('https://geoaurora-backend-432163986190.asia-south1.run.app/api/detail_enrich', {
+        const { data: detail } = await axios.post(getApiUrl('/api/detail_enrich'), {
           title,
           description: (typeof event.description === 'string' && event.description) || (event.note || ''),
           date: dateStr2,
@@ -115,7 +116,7 @@ export default function EventDetails() {
       // Fetch key terms only if not already cached
       if (keyTerms.length === 0) {
         try {
-          const { data: termsData } = await axios.post('https://geoaurora-backend-432163986190.asia-south1.run.app/api/key_terms', {
+          const { data: termsData } = await axios.post(getApiUrl('/api/key_terms'), {
             title,
             description: (typeof event.description === 'string' && event.description) || (event.note || ''),
             summary: summary || event.summary || ''

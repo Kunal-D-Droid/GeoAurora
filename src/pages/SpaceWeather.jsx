@@ -2,6 +2,7 @@ import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import EventCard from '../components/EventCard';
+import { getApiUrl } from '../config/api';
 
 export default function SpaceWeather() {
   const [events, setEvents] = useState([]);
@@ -301,7 +302,7 @@ export default function SpaceWeather() {
   useEffect(() => {
     let intervalId;
     const fetchDonki = () => {
-      axios.get('https://geoaurora-backend-432163986190.asia-south1.run.app/api/donki').then(res => {
+      axios.get(getApiUrl('/api/donki')).then(res => {
         setEvents(res.data || []);
         try {
           sessionStorage.setItem('donki_cache_v1', JSON.stringify({ t: Date.now(), data: res.data || [] }));
@@ -352,7 +353,7 @@ export default function SpaceWeather() {
           // Enhanced prompt for unique facts
           const enhancedDescription = `${description}\n\nEvent Type: ${event.category || 'Space Weather Event'}\nEvent ID: ${stableId}\nTimestamp: ${event.startTime || 'Recent'}`;
           
-          const { data } = await axios.post('https://geoaurora-backend-432163986190.asia-south1.run.app/api/summary', { 
+          const { data } = await axios.post(getApiUrl('/api/summary'), { 
             title, 
             description: enhancedDescription 
           });
@@ -494,14 +495,6 @@ export default function SpaceWeather() {
                 <div className="px-2 sm:px-4 py-1.5 sm:py-2 bg-white/15 backdrop-blur-md rounded-lg sm:rounded-xl text-white text-xs sm:text-sm font-semibold border border-white/25 shadow-lg">
                   <span className="hidden sm:inline">{categoryLabel}</span>
                   <span className="sm:hidden">{categoryLabel.split(' ')[0]}</span>
-                </div>
-              </div>
-              
-              {/* Enhanced impact indicator */}
-              <div className="absolute top-2 sm:top-4 right-2 sm:right-4">
-                <div className={`px-2 sm:px-3 py-1.5 sm:py-2 ${config.impactColor} backdrop-blur-md rounded-lg sm:rounded-xl text-xs font-bold border shadow-lg`}>
-                  <span className="hidden sm:inline">⚠️ {config.impact}</span>
-                  <span className="sm:hidden">⚠️ Risk</span>
                 </div>
               </div>
               
