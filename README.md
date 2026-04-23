@@ -1,7 +1,6 @@
 # 🌌 GeoAurora
 
 ![GeoAurora Banner](https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=1200&q=80)
-*(Note: A custom banner can be added here)*
 
 **GeoAurora** is a modern, real-time dashboard designed to visualize Earth and space events using data directly from NASA APIs. It serves as an accessible, interactive, and visually stunning platform for space enthusiasts, researchers, and the curious public.
 
